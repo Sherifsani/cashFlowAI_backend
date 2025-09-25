@@ -14,10 +14,6 @@ export const register = async (req: Request, res: Response) => {
 
   try {
     console.log("Attempting to register user:", { username, email });
-    console.log("Environment variables:", {
-      tableName: process.env.DYNAMODB_TABLE_NAME,
-      region: process.env.AWS_REGION,
-    });
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -48,7 +44,7 @@ export const register = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
       console.error("Registration error:", error);
-      
+
       if (error.name === "ConditionalCheckFailedException") {
         return res.status(409).json({ message: "User already exists" });
       }
