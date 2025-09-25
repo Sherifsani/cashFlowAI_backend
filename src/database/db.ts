@@ -6,5 +6,4 @@ const client = new DynamoDBClient({
 })
 const dynamo = DynamoDBDocumentClient.from(client);
 
-
 export { dynamo, PutCommand, GetCommand };
