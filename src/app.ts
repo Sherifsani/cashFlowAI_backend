@@ -1,17 +1,22 @@
 import express from "express";
 import config from "./config/config";
 import authRoutes from "./routes/authRoutes";
+import businessRoutes from "./routes/businessRoutes";
 
 const app = express();
 
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/business", businessRoutes);
 
 //health check endpoint
 app.get("/", (req, res) => {
   res.send("Hello, World!");
 });
+
+// Log the loaded auth routes
+console.log("Loaded auth routes:", authRoutes.stack.map((r: any) => r.route?.path));
 
 // Error handling middleware
 app.use(
